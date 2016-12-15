@@ -1,5 +1,5 @@
 .react-actionsheet{
-  transition: opacity 0.3s linear;
+  font-family: "Helvetica neue", Verdana, Geneva, sans-serif;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -9,7 +9,7 @@
   color:#333;
   background: #eee;
   transition: transform 0.3s,-webkit-transform 0.3s;
-  font-family: "Helvetica neue", Verdana, Geneva, sans-serif;
+
 
   &[data-visible=false]{
     transform: translateY(100%);

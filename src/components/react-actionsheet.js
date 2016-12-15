@@ -13,8 +13,7 @@ class ReactActionSheet extends React.Component{
 
   static defaultProps = {
     items:[],
-    visible:false,
-    delegate:null
+    visible:false
   };
 
   static newInstance(inProps){
