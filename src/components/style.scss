@@ -1,0 +1,48 @@
+.react-actionsheet{
+  transition: opacity 0.3s linear;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  backface-visibility: hidden;
+  z-index: 3;
+  width: 100%;
+  color:#333;
+  background: #eee;
+  transition: transform 0.3s,-webkit-transform 0.3s;
+  font-family: "Helvetica neue", Verdana, Geneva, sans-serif;
+
+  &[data-visible=false]{
+    transform: translateY(100%);
+  }
+
+  &[data-visible=true]{
+    transform: translateY(0);
+  }
+
+  &-item{
+    background: #FFF;
+    &:active{
+      background: darken(#eee,10%);
+    }
+
+    &[data-role=blank]{
+      background: #EEE;
+    }
+
+    &[data-role=text]{
+      padding:14px 0;
+      text-align: center;
+    }
+    &[data-role=cmd]{
+      padding:14px 0;
+      text-align: center;
+      margin-top: 1px;
+    }
+    &:first-child{
+      margin-top: 0;
+    }
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+}
