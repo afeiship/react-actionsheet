@@ -1,6 +1,6 @@
 import './style.scss';
 import classNames from 'classnames';
-import {BackdropCtrl} from 'react-backdrop';
+import {ReactBackdropCtrl} from 'react-backdrop';
 import appendToDocument from 'react-append-to-document';
 
 class ReactActionSheet extends React.Component{
@@ -33,7 +33,7 @@ class ReactActionSheet extends React.Component{
 
   componentWillMount(){
     var self=this;
-    BackdropCtrl.getInstance({
+    ReactBackdropCtrl.createInstance({
       style:{
         opacity:0.6
       },
@@ -45,12 +45,12 @@ class ReactActionSheet extends React.Component{
 
   show(inOptions){
     this._setVisible(inOptions,true);
-    BackdropCtrl.show();
+    ReactBackdropCtrl.show();
   }
 
   hide(){
     this._setVisible({},false);
-    BackdropCtrl.hide();
+    ReactBackdropCtrl.hide();
   }
 
   _setVisible(inOptions,inValue){
