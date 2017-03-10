@@ -96,7 +96,7 @@ export default class ReactActionSheet extends React.Component{
             data-role={item.role}
             className="react-actionsheet-item"
             style={item.style}
-            onClick={onClick.bind(this,item)}>{item.content}</div>
+            onClick={this._onClick.bind(this,item)}>{item.content}</div>
           );
         })}
       </div>
