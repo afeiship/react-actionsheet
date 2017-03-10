@@ -1,11 +1,12 @@
 import './style.scss';
 import classNames from 'classnames';
+import noop from 'noop';
 import {ReactBackdropCtrl} from 'react-backdrop';
 import appendToDocument from 'react-append-to-document';
 
-class ReactActionSheet extends React.Component{
+export default class ReactActionSheet extends React.Component{
   static propTypes = {
-    cssClass:React.PropTypes.string,
+    className:React.PropTypes.string,
     items:React.PropTypes.array,
     visible:React.PropTypes.bool,
     onClick:React.PropTypes.func,
@@ -13,7 +14,8 @@ class ReactActionSheet extends React.Component{
 
   static defaultProps = {
     items:[],
-    visible:false
+    visible:false,
+    onClick:noop
   };
 
   static newInstance(inProps){
@@ -24,9 +26,11 @@ class ReactActionSheet extends React.Component{
 
   constructor(props) {
     super(props);
+    this._timer = null;
     this.state = {
       visible:props.visible,
       items:props.items,
+      onClick:props.onClick,
       animating:false,
     };
   }
@@ -44,52 +48,58 @@ class ReactActionSheet extends React.Component{
   }
 
   show(inOptions){
-    this._setVisible(inOptions,true);
+    let options = Object.assign({},this.props,inOptions,{visible:true});
+    this.setState({
+      animating:true
+    },()=>{
+      clearTimeout(this._timer);
+      this._timer = setTimeout(()=>{
+        this.setState(options);
+      });
+    });
     ReactBackdropCtrl.show();
   }
 
   hide(){
-    this._setVisible({},false);
-    ReactBackdropCtrl.hide();
-  }
-
-  _setVisible(inOptions,inValue){
-    var self=this;
     this.setState({
-      animating:true
+      animating:true,
+      visible:false
     });
-
-    setTimeout(function(){
-      self.setState(
-        Object.assign(inOptions,{
-          visible:inValue
-        })
-      );
-    });
+    ReactBackdropCtrl.hide();
   }
 
   _onTransitionEnd(){
     this.setState({
       animating:false
-    })
+    });
+  }
+
+  _onClick(inItem){
+    const {onClick} = this.state;
+    if(inItem.action){
+      onClick.call(this,inItem);
+    }
   }
 
   render(){
+    const {visible,animating,items,onClick} = this.state;
+    const {className} = this.props;
     return (
       <div
-        data-visible={this.state.visible}
-        hidden={!this.state.visible && !this.state.animating}
+        data-visible={visible}
+        hidden={!visible && !animating}
         onTransitionEnd={this._onTransitionEnd.bind(this)}
-        className={classNames('react-actionsheet',this.props.cssClass)}>
-        {this.state.items.map(function(item,index){
-          if(item.action){
-            return <div key={index} data-role={item.role} className="react-actionsheet-item" style={item.style} onClick={this.props.onClick.bind(this,item)}>{item.content}</div>;
-          }
-          return <div key={index} data-role={item.role} className="react-actionsheet-item" style={item.style}>{item.content}</div>;
-        }.bind(this))}
+        className={classNames('react-actionsheet',className)}>
+        {items.map((item,index)=>{
+          return (
+            <div key={index}
+            data-role={item.role}
+            className="react-actionsheet-item"
+            style={item.style}
+            onClick={onClick.bind(this,item)}>{item.content}</div>
+          );
+        })}
       </div>
     );
   }
 }
-
-export default ReactActionSheet;

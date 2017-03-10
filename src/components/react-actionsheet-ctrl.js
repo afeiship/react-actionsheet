@@ -16,4 +16,10 @@ export default class ReactActionSheetCtrl {
   static hide(){
     instance.component.hide();
   }
+
+  static destroy(){
+    instance.destroy();
+    instance = null;
+  }
+
 }

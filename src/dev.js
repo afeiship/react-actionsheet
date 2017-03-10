@@ -5,16 +5,14 @@ import {ReactActionSheetCtrl} from './main';
 class App extends React.Component{
 
   componentWillMount(){
-    ReactActionSheetCtrl.createInstance({
-      onClick:function(inItem){
-        console.log(this,inItem);
-      },
-      items:[]
-    });
+    ReactActionSheetCtrl.createInstance();
   }
 
   _click1(){
     ReactActionSheetCtrl.show({
+      onClick:function(item){
+        console.log('click1',item)
+      },
       items:[{
         role:'cmd',
         content:'Take Photo',
@@ -46,6 +44,9 @@ class App extends React.Component{
 
   _click2(){
     ReactActionSheetCtrl.show({
+      onClick:function(item,){
+        console.log('click2',item)
+      },
       items:[{
         role:'text',
         content:'Title',
@@ -71,6 +72,9 @@ class App extends React.Component{
   }
   _click3(){
     ReactActionSheetCtrl.show({
+      onClick:function(item){
+        console.log('click3',item,this)
+      },
       items:[{
         role:'text',
         content:'Are you sure?',

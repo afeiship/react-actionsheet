@@ -21,6 +21,8 @@
 
   &-item{
     background: #FFF;
+    user-select: none;
+    -webkit-user-select: none;
     &:active{
       background: darken(#eee,10%);
     }
@@ -32,6 +34,9 @@
     &[data-role=text]{
       padding:14px 0;
       text-align: center;
+      &:active{
+        background: #FFF;
+      }
     }
     &[data-role=cmd]{
       padding:14px 0;
