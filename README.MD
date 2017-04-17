@@ -1,6 +1,9 @@
-#react-actionsheet
+# react-actionsheet
 > ActionSheet component for react.
 
+## size:
++ 12K	react-actionsheet.js
++ 60K	react-actionsheet.js.map
 
 ## resource:
 + http://www.cnblogs.com/Kummy/p/4966937.html

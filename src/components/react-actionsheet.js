@@ -3,8 +3,9 @@ import classNames from 'classnames';
 import noop from 'noop';
 import {ReactBackdropCtrl} from 'react-backdrop';
 import appendToDocument from 'react-append-to-document';
+import ReactVisible from 'react-visible';
 
-export default class ReactActionSheet extends React.Component{
+export default class ReactActionSheet extends ReactVisible{
   static propTypes = {
     className:React.PropTypes.string,
     items:React.PropTypes.array,
@@ -26,52 +27,37 @@ export default class ReactActionSheet extends React.Component{
 
   constructor(props) {
     super(props);
-    this._timer = null;
     this.state = {
       visible:props.visible,
+      hidden:!props.visible,
       items:props.items,
       onClick:props.onClick,
-      animating:false,
+      animating:false
     };
   }
 
   componentWillMount(){
-    var self=this;
     ReactBackdropCtrl.createInstance({
       style:{
         opacity:0.6
       },
-      onClick:function(){
-        self.hide();
+      onClick:()=>{
+        this.hide();
       }
-    })
+    });
   }
 
-  show(inOptions){
-    let options = Object.assign({},this.props,inOptions,{visible:true});
-    this.setState({
-      animating:true
-    },()=>{
-      clearTimeout(this._timer);
-      this._timer = setTimeout(()=>{
-        this.setState(options);
-      });
-    });
+  show(inOptions,inCallback){
+    let options = Object.assign({...this.props},inOptions,{visible:true});
     ReactBackdropCtrl.show();
+    this.setState(options,()=>{
+      super.show(inCallback);
+    });
   }
 
-  hide(){
-    this.setState({
-      animating:true,
-      visible:false
-    });
+  hide(inCallback){
+    super.hide(inCallback);
     ReactBackdropCtrl.hide();
-  }
-
-  _onTransitionEnd(){
-    this.setState({
-      animating:false
-    });
   }
 
   _onClick(inItem){
@@ -82,13 +68,13 @@ export default class ReactActionSheet extends React.Component{
   }
 
   render(){
-    const {visible,animating,items,onClick} = this.state;
+    const {visible,hidden,animating,items,onClick} = this.state;
     const {className} = this.props;
     return (
       <div
         data-visible={visible}
-        hidden={!visible && !animating}
-        onTransitionEnd={this._onTransitionEnd.bind(this)}
+        hidden={hidden}
+        onTransitionEnd={this._onTransitionEnd}
         className={classNames('react-actionsheet',className)}>
         {items.map((item,index)=>{
           return (
