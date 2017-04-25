@@ -54,7 +54,6 @@ export default class ReactActionSheet extends ReactVisible{
   render(){
     const {visible,hidden,animating,items,onClick} = this.state;
     const {className} = this.props;
-    console.log(visible);
     return (
       <div className="react-actionsheet-container">
         <ReactBackdrop onClick={this.hide.bind(this)} visible={visible} />
