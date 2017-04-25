@@ -1,7 +1,7 @@
 import './style.scss';
 import classNames from 'classnames';
 import noop from 'noop';
-import {ReactBackdropCtrl} from 'react-backdrop';
+import {ReactBackdrop} from 'react-backdrop';
 import appendToDocument from 'react-append-to-document';
 import ReactVisible from 'react-visible';
 
@@ -36,29 +36,13 @@ export default class ReactActionSheet extends ReactVisible{
     };
   }
 
-  componentWillMount(){
-    ReactBackdropCtrl.createInstance({
-      style:{
-        opacity:0.6
-      },
-      onClick:()=>{
-        this.hide();
-      }
-    });
-  }
-
   show(inOptions,inCallback){
-    let options = Object.assign({...this.props},inOptions,{visible:true});
-    ReactBackdropCtrl.show();
+    let options = Object.assign({...this.props},inOptions);
     this.setState(options,()=>{
       super.show(inCallback);
     });
   }
 
-  hide(inCallback){
-    super.hide(inCallback);
-    ReactBackdropCtrl.hide();
-  }
 
   _onClick(inItem){
     const {onClick} = this.state;
@@ -70,21 +54,23 @@ export default class ReactActionSheet extends ReactVisible{
   render(){
     const {visible,hidden,animating,items,onClick} = this.state;
     const {className} = this.props;
+    console.log(visible);
     return (
-      <div
-        data-visible={visible}
-        hidden={hidden}
-        onTransitionEnd={this._onTransitionEnd}
-        className={classNames('react-actionsheet',className)}>
-        {items.map((item,index)=>{
-          return (
-            <div key={index}
-            data-role={item.role}
-            className="react-actionsheet-item"
-            style={item.style}
-            onClick={this._onClick.bind(this,item)}>{item.content}</div>
-          );
-        })}
+      <div className="react-actionsheet-container">
+        <ReactBackdrop onClick={this.hide.bind(this)} visible={visible} />
+        <div
+          data-visible={visible}
+          className={classNames('react-actionsheet',className)}>
+          {items.map((item,index)=>{
+            return (
+              <div key={index}
+              data-role={item.role}
+              className="react-actionsheet-item"
+              style={item.style}
+              onClick={this._onClick.bind(this,item)}>{item.content}</div>
+            );
+          })}
+        </div>
       </div>
     );
   }
