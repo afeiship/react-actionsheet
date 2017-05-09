@@ -1,9 +1,11 @@
 import './style.scss';
+
+import {ReactBackdrop} from 'react-backdrop';
+import ReactVisible from 'react-visible';
+import appendToDocument from 'react-append-to-document';
 import classNames from 'classnames';
 import noop from 'noop';
-import {ReactBackdrop} from 'react-backdrop';
-import appendToDocument from 'react-append-to-document';
-import ReactVisible from 'react-visible';
+import objectAssign from 'object-assign';
 
 export default class ReactActionSheet extends ReactVisible{
   static propTypes = {
@@ -37,7 +39,7 @@ export default class ReactActionSheet extends ReactVisible{
   }
 
   show(inOptions,inCallback){
-    let options = Object.assign({...this.props},inOptions);
+    let options = objectAssign({...this.props},inOptions);
     this.setState(options,()=>{
       super.show(inCallback);
     });

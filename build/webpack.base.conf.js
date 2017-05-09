@@ -16,6 +16,7 @@ var externals = process.env.NODE_ENV === 'production' ? {
   'react-actionsheet': 'react-actionsheet',
   'react-append-to-document': 'react-append-to-document',
   'react-visible': 'react-visible',
+  'robject-assign': 'robject-assign',
   'react-backdrop': 'react-backdrop',
 } : {};
 
