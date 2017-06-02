@@ -1,5 +1,6 @@
 import './style.scss';
 
+import PropTypes from 'prop-types';
 import {ReactBackdrop} from 'react-backdrop';
 import ReactVisible from 'react-visible';
 import appendToDocument from 'react-append-to-document';
@@ -9,10 +10,10 @@ import objectAssign from 'object-assign';
 
 export default class ReactActionSheet extends ReactVisible{
   static propTypes = {
-    className:React.PropTypes.string,
-    items:React.PropTypes.array,
-    visible:React.PropTypes.bool,
-    onClick:React.PropTypes.func,
+    className:PropTypes.string,
+    items:PropTypes.array,
+    visible:PropTypes.bool,
+    onClick:PropTypes.func,
   };
 
   static defaultProps = {
