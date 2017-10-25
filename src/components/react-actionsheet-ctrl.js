@@ -10,11 +10,11 @@ export default class ReactActionSheetCtrl {
   }
 
   static show(inOptions,inCallback){
-    instance.component.show(inOptions,inCallback);
+    return instance.component.show(inOptions,inCallback);
   }
 
   static hide(inCallback){
-    instance.component.hide(inCallback);
+    return instance.component.hide(inCallback);
   }
 
   static destroy(){
