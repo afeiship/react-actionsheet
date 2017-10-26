@@ -44,6 +44,7 @@ export default class ReactActionSheet extends ReactVisible{
     this.setState(options,()=>{
       super.show(inCallback);
     });
+    return this;
   }
 
 
