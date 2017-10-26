@@ -70,7 +70,7 @@ export default class ReactActionSheet extends ReactVisible{
               data-role={item.role}
               className="react-actionsheet-item"
               style={item.style}
-              onTouchStart={this._onClick.bind(this,item)}>{item.content}</div>
+              onClick={this._onClick.bind(this,item)}>{item.content}</div>
             );
           })}
         </div>
