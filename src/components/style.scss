@@ -13,6 +13,9 @@
 
   &[data-visible=false]{
     transform: translateY(100%);
+    &[hidden]{
+      display: none !important;
+    }
   }
 
   &[data-visible=true]{
