@@ -17,6 +17,16 @@ class App extends React.Component{
         role:'cmd',
         content:'Take Photo',
         action:'tackPhoto'
+      },
+      {
+        role:'cmd',
+        content:'Hidden-true',
+        hidden: true,
+        action:'hidden_true'
+      },{
+        role:'cmd',
+        content:'hidden-false',
+        action:'hidden_false'
       },{
         role:'cmd',
         content:'Choose From ...',

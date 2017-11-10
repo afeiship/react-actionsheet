@@ -66,7 +66,7 @@ export default class ReactActionSheet extends ReactVisible{
           className={classNames('react-actionsheet',className)}>
           {items.map((item,index)=>{
             return (
-              <div key={index}
+              !item.hidden && <div key={index}
               data-role={item.role}
               className="react-actionsheet-item"
               style={item.style}
